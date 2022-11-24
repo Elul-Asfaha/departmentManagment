@@ -25,7 +25,8 @@ outline: none;
 padding: 3px;
 font-size: 18px;
 border: none;
-padding: 5px
+padding: 5px;
+
 `
 
 const SearchBtn=styled.button`
@@ -57,7 +58,7 @@ const handleSearch=()=>{
                 </Title>
                 <Form onSubmit={handleSearch}>
                     <SearchWrapper>
-                        <Search type="search" placeholder="Search For department"></Search>
+                        <Search type="text" placeholder="Search For department"></Search>
                         <SearchBtn><SearchIcon/></SearchBtn>
                     </SearchWrapper>
                 </Form>
