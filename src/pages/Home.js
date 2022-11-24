@@ -6,15 +6,20 @@ import UpdateDepartment from "../components/UpdateDepartment";
 import DisplayDepartment from "../components/DisplayDepartment";
 import DisplayAll from "../components/DisplayAll";
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
-
+import {desktop} from '../Responsive.js'
 const Container=styled.div`
-width: 100vw;
-height: 100%;
+width: 100%;
+height: 100vh;
 `
 const ContentWrapper=styled.div`
 display: flex;
 flex-direction: column;
-min-height: calc(100vh - 63px)
+min-height: calc(100vh - 63px);
+
+${desktop({
+    flexDirection: "row",
+
+})}
 
 `
 

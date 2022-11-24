@@ -15,13 +15,17 @@ margin: 1rem;
 
 const Form=styled.form`
 width: 85%;
+max-width: 600px;
 padding: 1rem 1rem;
-border: solid black 1px;
+border: solid teal 2px;
 display: flex;
 flex-direction: column;
+border-radius: 5px;
+box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 `
 const Label=styled.label`
 margin: 0.5rem 0 0.2rem 0;
+font-weight: bold;
 
 `
 const Input=styled.input`
@@ -39,13 +43,14 @@ width: 100%;
 resize: none;
 outline: none;
 height: 80px;
+padding: 5px;
 
 `
 const Add=styled.button`
 margin: 1rem auto 0 auto;
 width: 50%;
 font-size: 18px;
-max-width: 80px;`
+max-width: 200px;`
 const AddDept=()=>{
 
 const [NewDept,setNewDept]=useState({

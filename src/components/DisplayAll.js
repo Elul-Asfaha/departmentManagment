@@ -4,6 +4,7 @@ import MOCK_DATA from "../data/MOCK_DATA.json"
 import {COLUMNS} from "./columns.js"
 import { useMemo } from "react"
 import './table.css'
+import { desktop } from "../Responsive"
 
 
 const Container=styled.div`
@@ -11,6 +12,9 @@ width: 100vw;
 display: flex;
 align-items: center;
 flex-direction: column;
+${desktop({
+    width: '100%'
+})}
 `
 
 const Title=styled.h1`
@@ -21,7 +25,7 @@ margin: 2rem;
 `
 
 const Table=styled.table`
-border: solid black 2px;
+border: solid teal 2px;
 `
 
 
