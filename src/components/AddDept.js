@@ -64,7 +64,7 @@ z-index: 1;
 opacity: 0.9;
 border: solid teal 1px;
 border-radius: 10px;    
-width: 40%;
+width: 60%;
 max-width: 400px;
 height: 180px;
 
