@@ -1,5 +1,7 @@
 import styled from "styled-components"
 import SearchIcon from '@mui/icons-material/Search';
+import Mock_Data from '../data/MOCK_DATA.json'
+import { useState } from "react";
 const Container=styled.div`
 width: 100%;
 padding: 0.5rem;
@@ -47,9 +49,24 @@ flex-direction: column;
 `
 const DisplayDepartment=()=>{
 
-const handleSearch=()=>{
 
+
+
+
+const [searchQuery,setSearchQuery]=useState()
+const [result,setResult]=useState([])
+
+
+const handleChange=(e)=>{
+setSearchQuery((prev)=>prev=e.target.value)
 }
+
+const handleSearch=(e)=>{
+    setResult((prev)=>prev=Mock_Data.filter(items=>items.department_name===searchQuery));
+    alert(result)
+    e.preventDefault()
+}
+
 
     return(
         <Container>
@@ -58,7 +75,7 @@ const handleSearch=()=>{
                 </Title>
                 <Form onSubmit={handleSearch}>
                     <SearchWrapper>
-                        <Search type="text" placeholder="Search For department"></Search>
+                        <Search type="text" placeholder="Search For department" onChange={handleChange}></Search>
                         <SearchBtn><SearchIcon/></SearchBtn>
                     </SearchWrapper>
                 </Form>

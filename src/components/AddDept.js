@@ -1,11 +1,14 @@
 import { useState } from "react";
+import CloseIcon from '@mui/icons-material/Close';
 import styled from "styled-components";
 import Mock_Data from '../data/MOCK_DATA.json'
 const Container=styled.div`
 width: 100%;
+height: 100vh;
 display: flex;
 align-items: center;
 flex-direction: column;
+position: relative;
 `
 const Title=styled.h1`
 font-size: 20px;
@@ -40,18 +43,52 @@ outline: none;
 `
 const Desc=styled.textarea`
 width: 100%;
+margin: 0 auto;
 resize: none;
 outline: none;
 height: 80px;
-padding: 5px;
+padding: 5px 0;
 
 `
 const Add=styled.button`
 margin: 1rem auto 0 auto;
 width: 50%;
 font-size: 18px;
-max-width: 200px;`
+max-width: 200px;
+`
+const MessageContainer=styled.div`
+position: absolute;
+right: 50;
+background: white;
+z-index: 1;
+opacity: 0.9;
+border: solid teal 1px;
+border-radius: 10px;    
+width: 40%;
+max-width: 400px;
+height: 180px;
+
+`
+const MessageWrapper=styled.div`
+height: 100%;
+width: 100%;
+position: relative;
+display: flex;
+justify-content: center;
+align-items: center;
+
+`
+
 const AddDept=()=>{
+
+const CloseIconStyle={
+    position: "absolute",
+    right: "5",
+    top: "5"
+
+}
+
+
 
 const [NewDept,setNewDept]=useState({
 
@@ -59,6 +96,7 @@ const [NewDept,setNewDept]=useState({
     ReportsTo: "",
     Description: ""
 })
+const [toggle,setToggle]=useState(false)
 
 const handleInput=(e)=>{
    const {name,value}=e.target;
@@ -69,8 +107,12 @@ const handleInput=(e)=>{
 
 const handleSubmit=(e)=>{
     e.preventDefault()
+    setToggle(!toggle)
 }
 
+const handleToggle=()=>{
+    setToggle(!toggle)
+}
 
     return(
 
@@ -93,6 +135,17 @@ const handleSubmit=(e)=>{
                 <Desc type="textarea" name="Description" onChange={handleInput} required/>
                 <Add>Add</Add>
             </Form>
+
+                {
+                    toggle && 
+                    <MessageContainer>
+                        <MessageWrapper>
+                                <CloseIcon onClick={handleToggle} style={CloseIconStyle} />
+                                <p>Text Goes Here</p>
+                        </MessageWrapper>
+                    </MessageContainer>
+                }
+
         </Container>
     )
 }

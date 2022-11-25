@@ -1,4 +1,5 @@
 import { useState } from "react";
+import CloseIcon from '@mui/icons-material/Close';
 import styled from "styled-components";
 import Mock_Data from '../data/MOCK_DATA.json'
 const Container=styled.div`
@@ -61,9 +62,40 @@ flex-direction: column;
 gap: 0.5rem;
 `
 
+const MessageContainer=styled.div`
+position: absolute;
+right: 50;
+background: white;
+z-index: 1;
+opacity: 0.9;
+border: solid teal 1px;
+border-radius: 10px;    
+width: 40%;
+max-width: 400px;
+height: 180px;
+
+`
+const MessageWrapper=styled.div`
+height: 100%;
+width: 100%;
+position: relative;
+display: flex;
+justify-content: center;
+align-items: center;
+
+`
+
 
 
 const UpdateDepartment=()=>{
+
+    const CloseIconStyle={
+        position: "absolute",
+        right: "5",
+        top: "5"
+    
+    }
+    
 
 const [Dept,setDept]=useState({
 
@@ -71,6 +103,7 @@ const [Dept,setDept]=useState({
     ReportsTo: "",
     Description: ""
 })
+const [toggle,setToggle]=useState(false)
 
 const handleInput=(e)=>{
    const {name,value}=e.target;
@@ -81,6 +114,7 @@ const handleInput=(e)=>{
 
 const handleSubmit=(e)=>{
     e.preventDefault()
+    handleToggle()
 }
 
 const [selectedDepartment,setSelectedDepartment]=useState("")
@@ -90,8 +124,10 @@ console.log(selectedDepartment)
 }
 
 
-console.log(Mock_Data)
 
+const handleToggle=()=>{
+    setToggle(!toggle)
+}
 
 
     return(
@@ -126,6 +162,17 @@ console.log(Mock_Data)
                 <Desc type="textarea" name="Description" onChange={handleInput} required/>
                 <Update>Update</Update>
             </Form>
+            
+            {
+                    toggle && 
+                    <MessageContainer>
+                        <MessageWrapper>
+                                <CloseIcon onClick={handleToggle} style={CloseIconStyle} />
+                                <p>Text Goes Here</p>
+                        </MessageWrapper>
+                    </MessageContainer>
+                }
+
         </Container>
     )
 }
