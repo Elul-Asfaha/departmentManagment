@@ -6,7 +6,7 @@ const Container=styled.div`
 min-height: 100%;
 width: 100vw;
 ${desktop({
-    height: '100vh',
+    minHeight: '100vh',
     borderRight: 'solid teal 3px',
     width: 'auto',
     textAlign: 'center'

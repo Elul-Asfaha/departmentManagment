@@ -14,7 +14,7 @@ const Header=()=>{
     return(
         <Container>
             <Name>
-                abc department managment
+                ABC department managment
             </Name>
         </Container>
     )
