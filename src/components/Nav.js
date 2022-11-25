@@ -4,7 +4,7 @@ import {desktop} from '../Responsive'
 
 const Container=styled.div`
 min-height: 100%;
-width: 100vw;
+width: 100%;
 ${desktop({
     minHeight: '100vh',
     borderRight: 'solid teal 3px',

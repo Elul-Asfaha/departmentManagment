@@ -8,7 +8,7 @@ import { desktop } from "../Responsive"
 
 
 const Container=styled.div`
-width: 100vw;
+width: 100%;
 display: flex;
 align-items: center;
 flex-direction: column;
@@ -26,6 +26,7 @@ margin: 2rem;
 
 const Table=styled.table`
 border: solid teal 2px;
+width: 100%;
 `
 
 
