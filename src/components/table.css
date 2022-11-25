@@ -17,10 +17,21 @@ table th{
     position: sticky;
     color: white;
     font-size: 16px;
+  
 
 }
 table tr:nth-child(even){
     background-color: rgb(231, 218, 218);
 
 }
-
+@media only screen and (min-width:800px){
+    table{
+        max-width: 800px;
+    }
+    table td,table th{
+        font-size: 18px;
+    }
+    table th{
+        font-size: 21px;
+    }
+}

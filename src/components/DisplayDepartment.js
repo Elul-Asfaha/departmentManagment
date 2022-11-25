@@ -56,7 +56,8 @@ width: 60%;
 max-width: 400px;
 padding: 0;
 align-items: center;
-
+border-radius: 10px;
+box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 `
 const ShowButton=styled.button`
 flex: 2;
@@ -68,7 +69,7 @@ const style = {
     bgcolor: 'background.paper',
   };
 const style1={
-    flex: '2'
+    flex: '2',
 }
 const style2={
     flex: '2',
@@ -102,12 +103,12 @@ const displayResult=result.map(items=>
     <DepartmentDetails key={items.id}>
         <List sx={style} component="nav" aria-label="mailbox folders" >
             <ListItem >
-                <ListItemText style={style1} primary="Department Name" />
+                <ListItemText style={style1} primary="Department Name:" />
                 <ListItemText style={style2} primary={items.department_name} />
             </ListItem>
             <Divider />
             <ListItem divider>
-                <ListItemText style={style1} primary="Description" />
+                <ListItemText style={style1} primary="Description:" />
                 <ListItemText style={style2} primary={items.description} />
             </ListItem>
             <ListItem >
