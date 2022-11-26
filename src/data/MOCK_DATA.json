@@ -6,5 +6,5 @@
 {"id":6,"department_name":"Product Management","description":"leo","managing_department":"Support","manages":"Business Development"},
 {"id":7,"department_name":"Legal","description":"nulla justo","managing_department":"Marketing","manages":"Business Development"},
 {"id":8,"department_name":"Business Development","description":"eleifend","managing_department":"Accounting","manages":"Sales"},
-{"id":9,"department_name":"Training","description":"faucibus accumsan","managing_department":"Business Development","manages":"Services"},
+{"id":9,"department_name":"Training","description":"faucibus accumsan","managing_department":"Business Development","manages":"Services"}
 ]
