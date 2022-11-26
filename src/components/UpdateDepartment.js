@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useContext,useState } from "react";
+import {ProvideData} from '../pages/Home.js'
 import CloseIcon from '@mui/icons-material/Close';
 import styled from "styled-components";
-import Mock_Data from '../data/MOCK_DATA.json'
 const Container=styled.div`
 width: 100%;
 display: flex;
@@ -85,51 +85,73 @@ align-items: center;
 
 `
 
+const CloseIconStyle={
+    position: "absolute",
+    right: "5",
+    top: "5"
+
+}
 
 
-const UpdateDepartment=()=>{
 
-    const CloseIconStyle={
-        position: "absolute",
-        right: "5",
-        top: "5"
-    
-    }
-    
+const UpdateDepartment=(props)=>{
 
-const [Dept,setDept]=useState({
+    const provided=useContext(ProvideData)
+    const [UpdatedDept,setUpdatedDept]=useState({
+  
+        id: '',
+        department_name: "",
+        description: "",
+        manages: "n/a",
+        managing_department: "n/a"
 
-    Name: "",
-    ReportsTo: "",
-    Description: ""
 })
-const [toggle,setToggle]=useState(false)
+const [selectedDepartment,setSelectedDepartment]=useState("")
+
 
 const handleInput=(e)=>{
-   const {name,value}=e.target;
-    setDept({...Dept,
+    const {name,value}=e.target;
+    setUpdatedDept({...UpdateDepartment,
             [name]:value
         })
-}
+        setUpdatedDept(prev=>({
+        ...prev,
+        id: provided.data.length+1
+    }));
+    (typeof(value)==='number') && setUpdatedDept(
+        {   
+            managing_department: provided.data[value-1].department_name
+        }
+    )
+    }
+
 
 const handleSubmit=(e)=>{
-    e.preventDefault()
-    handleToggle()
+    e.preventDefault();
+    provided.setData(provided.data.filter(items=>items.id!==selectedDepartment))
+    
+    provided.handleUpdateToggler();
+
+    provided.setData([...provided.data,
+        UpdateDepartment
+    ])
+
+    setUpdatedDept(
+        {
+            id: '',
+            department_name: "",
+            description: "",
+            manages: "n/a",
+            managing_department: "n/a"
+        }
+    )
+    
 }
 
-const [selectedDepartment,setSelectedDepartment]=useState("")
+
 const handleSelectDeptEdit=(e)=>{
-setSelectedDepartment(e.target.value)
-console.log(selectedDepartment)
+setSelectedDepartment(parseInt(e.target.value))
 }
-
-
-
-const handleToggle=()=>{
-    setToggle(!toggle)
-}
-
-
     return(
         <Container>
             <Title>
@@ -138,9 +160,9 @@ const handleToggle=()=>{
 
             <SelectorWrapper>
                 <label htmlFor="selectEdit">Select the Department you want to Update:</label>
-                <Select name="selectEdit" onChange={handleSelectDeptEdit}>
+                <Select name="selectEdit" onChange={handleSelectDeptEdit} required>
                     <option></option>
-                    {Mock_Data.map(items=><option value={items.id} key={items.id}>{items.department_name}</option>)}
+                    {provided.data.map(items=><option value={items.id} key={items.id}>{items.department_name}</option>)}
                 </Select>
             </SelectorWrapper>
 
@@ -149,25 +171,31 @@ const handleToggle=()=>{
 
 
             <Form onSubmit={handleSubmit}>
-                <Label htmlFor="Name">Name of the Department:</Label>
-                <Input type="text" name="Name" onChange={handleInput} required/>
-                
-                <Label htmlFor="ReportsTo">Reports To:</Label>
-                <Select onChange={handleInput} name="ReportsTo" required>
-                    <option></option>
-                    {Mock_Data.map(items=><option value={items.id} key={items.id}>{items.department_name}</option>
-                    )}
-                </Select>
-                <Label htmlFor="Description">Description: </Label>
-                <Desc type="textarea" name="Description" onChange={handleInput} required/>
+                 <Label htmlFor="department_name">Name of the Department:</Label>
+                    <Input type="text" name="department_name" onChange={handleInput} value={UpdatedDept.department_name} required/>
+                    
+                    <Label htmlFor="managing_department">Reports To:</Label>
+                    <Select onChange={handleInput} name="managing_department" required>
+                        <option value={UpdatedDept.managing_department} >N/A</option>
+                        {provided.data.map(items=><option value={items.id} key={items.id}>{items.department_name}</option>
+                        )}
+                    </Select>
+                    <Label htmlFor="manages">Manages</Label>
+                    <Select onChange={handleInput} name="manages"  required>
+                        <option value={UpdatedDept.manages} >N/A</option>
+                        {provided.data.map(items=><option value={items.id} key={items.id}>{items.manages}</option>
+                        )}
+                    </Select>
+                    <Label htmlFor="description">Description:</Label>
+                    <Desc type="textarea" name="description" onChange={handleInput} value={UpdatedDept.description} required/>
                 <Update>Update</Update>
             </Form>
             
             {
-                    toggle && 
+                    provided.updateToggle && 
                     <MessageContainer>
                         <MessageWrapper>
-                                <CloseIcon onClick={handleToggle} style={CloseIconStyle} />
+                                <CloseIcon onClick={props.updateToggleHandler} style={CloseIconStyle} />
                                 <p>Text Goes Here</p>
                         </MessageWrapper>
                     </MessageContainer>

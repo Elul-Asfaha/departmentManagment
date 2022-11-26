@@ -8,10 +8,12 @@ margin: 0px;
 min-height: 100vh;
 `
 const App=()=> {
+
   return (
-    <Container>
-      <Home/>
-    </Container>
+  
+      <Container>
+        <Home/>
+      </Container>
   );
 }
 

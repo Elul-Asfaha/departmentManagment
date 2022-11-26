@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useContext,useState } from "react";
+import {ProvideData} from '../pages/Home.js'
 import CloseIcon from '@mui/icons-material/Close';
 import styled from "styled-components";
-import Mock_Data from '../data/MOCK_DATA.json'
 const Container=styled.div`
 width: 100%;
 height: 100vh;
@@ -79,7 +79,8 @@ align-items: center;
 
 `
 
-const AddDept=()=>{
+const AddDept=(props)=>{
+const provided=useContext(ProvideData)
 
 const CloseIconStyle={
     position: "absolute",
@@ -89,62 +90,85 @@ const CloseIconStyle={
 }
 
 
-
 const [NewDept,setNewDept]=useState({
-
-    Name: "",
-    ReportsTo: "",
-    Description: ""
+    id: '',
+    department_name: "",
+    description: "",
+    manages: "n/a",
+    managing_department: "n/a"
 })
-const [toggle,setToggle]=useState(false)
 
 const handleInput=(e)=>{
-   const {name,value}=e.target;
-    setNewDept({...NewDept,
-            [name]:value
-        })
+const {name,value}=e.target;
+setNewDept({...NewDept,
+        [name]:value
+    })
+setNewDept(prev=>({
+    ...prev,
+    id: Math.floor(Math.random() * 100)
+
+}));
+(typeof(value)==='number') && setNewDept(
+    {   
+        managing_department: provided.data[value-1].department_name
+    }
+)
 }
 
 const handleSubmit=(e)=>{
-    e.preventDefault()
-    setToggle(!toggle)
-}
+    e.preventDefault();
+    provided.setData([...provided.data,
+        NewDept
+    ])
 
-const handleToggle=()=>{
-    setToggle(!toggle)
+    setNewDept(
+        {
+            id: '',
+            department_name: "",
+            description: "",
+            manages: "n/a",
+            managing_department: "n/a"
+        }
+    )
+    
+   provided.handleAddToggler()
 }
-
     return(
-
 
         <Container>
             <Title>
                 Add a New Department
             </Title>
-            <Form onSubmit={handleSubmit}>
-                <Label htmlFor="Name">Name of the Department:</Label>
-                <Input type="text" name="Name" onChange={handleInput} required/>
-                
-                <Label htmlFor="ReportsTo">Reports To:</Label>
-                <Select onChange={handleInput} name="ReportsTo" required>
-                    <option></option>
-                    {Mock_Data.map(items=><option value={items.id} key={items.id}>{items.department_name}</option>
-                    )}
-                </Select>
-                <Label htmlFor="Description">Description:</Label>
-                <Desc type="textarea" name="Description" onChange={handleInput} required/>
-                <Add>Add</Add>
-            </Form>
+                <Form onSubmit={handleSubmit} >
+                    <Label htmlFor="department_name">Name of the Department:</Label>
+                    <Input type="text" name="department_name" onChange={handleInput} value={NewDept.department_name} required/>
+                    
+                    <Label htmlFor="managing_department">Reports To:</Label>
+                    <Select onChange={handleInput} name="managing_department" required>
+                        <option value={NewDept.managing_department} >N/A</option>
+                        {provided.data.map(items=><option value={items.id} key={items.id}>{items.managing_department}</option>
+                        )}
+                    </Select>
+                    <Label htmlFor="manages">Manages</Label>
+                    <Select onChange={handleInput} name="manages"  required>
+                        <option value={NewDept.manages} >N/A</option>
+                        {provided.data.map(items=><option value={items.id} key={items.id}>{items.manages}</option>
+                        )}
+                    </Select>
+                    <Label htmlFor="description">Description:</Label>
+                    <Desc type="textarea" name="description" onChange={handleInput} value={NewDept.description} required/>
+                    <Add>Add</Add>
+                </Form>
 
-                {
-                    toggle && 
-                    <MessageContainer>
-                        <MessageWrapper>
-                                <CloseIcon onClick={handleToggle} style={CloseIconStyle} />
-                                <p>Text Goes Here</p>
-                        </MessageWrapper>
-                    </MessageContainer>
-                }
+                    {
+                        provided.addToggle && 
+                        <MessageContainer>
+                            <MessageWrapper>
+                                    <CloseIcon onClick={props.addToggleHandler} style={CloseIconStyle} />
+                                    <p>Task Successful</p>
+                            </MessageWrapper>
+                        </MessageContainer>
+                    } 
 
         </Container>
     )

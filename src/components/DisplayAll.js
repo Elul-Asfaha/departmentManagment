@@ -1,10 +1,11 @@
 import styled from "styled-components"
 import { useTable } from "react-table"
-import MOCK_DATA from "../data/MOCK_DATA.json"
+import { useContext } from "react"
 import {COLUMNS} from "./columns.js"
 import { useMemo } from "react"
 import './table.css'
 import { desktop } from "../Responsive"
+import {ProvideData} from '../pages/Home.js'
 
 
 const Container=styled.div`
@@ -34,8 +35,9 @@ width: 100%;
 // start of the function
 
 const DisplayAll=()=>{
+const provided=useContext(ProvideData)
 const columns=useMemo(()=>COLUMNS,[])
-const data=useMemo(()=>MOCK_DATA,[])
+const data=useMemo(()=>provided.data,[provided.data])
 const tableInstance=useTable({
         columns,
         data
