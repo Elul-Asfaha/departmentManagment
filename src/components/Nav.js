@@ -18,7 +18,7 @@ const linkStyle={
     }
     
 const List=styled.ul`
-width: 100vw;
+width: 100%;
 list-style: none;
 display: flex;
 
