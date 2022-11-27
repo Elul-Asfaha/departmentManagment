@@ -17,7 +17,7 @@ flex-direction: column;
 const Title=styled.h1`
 font-size: 20px;
 text-align: center;
-margin: 1rem;
+margin: 1.5rem;
 `
 const Form=styled.form``
 
@@ -82,7 +82,6 @@ const DisplayDepartment=()=>{
     const [result,setResult]=useState([])
     const [managingDepartmentToggle,SetManagingDepartmentToggle]=useState(false)
     const [managesToggle,setManagesToggle]=useState(false)
-
     const handleChange=(e)=>{
         e.preventDefault();
         setSearchQuery((prev)=>prev=e.target.value);

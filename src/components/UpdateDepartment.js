@@ -11,7 +11,7 @@ flex-direction: column;
 const Title=styled.h1`
 font-size: 20px;
 text-align: center;
-margin: 1rem;
+margin: 1.5rem;
 `
 
 const Form=styled.form`
@@ -54,7 +54,7 @@ outline: none;
 `
 
 const SelectorWrapper=styled.div`
-margin: 1.5rem;   
+margin: 0 0 1.5rem 0;   
 display: flex;
 justify-content: center;
 align-items: center;
@@ -198,7 +198,7 @@ setSelectedDepartment(parseInt(e.target.value))
                     <MessageContainer>
                         <MessageWrapper>
                                 <CloseIcon onClick={props.updateToggleHandler} style={CloseIconStyle} />
-                                <p>Text Goes Here</p>
+                                <p>Department Sucessfully Updated</p>
                         </MessageWrapper>
                     </MessageContainer>
                 }

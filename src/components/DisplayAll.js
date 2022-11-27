@@ -21,7 +21,7 @@ ${desktop({
 const Title=styled.h1`
 font-size: 20px;
 text-align: center;
-margin: 2rem;
+margin: 1.5rem;
 
 `
 
@@ -42,6 +42,7 @@ const tableInstance=useTable({
         columns,
         data
     })
+
 
 const {
     getTableProps,
