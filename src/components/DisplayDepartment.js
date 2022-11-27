@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import SearchIcon from '@mui/icons-material/Search';
-import Mock_Data from '../data/MOCK_DATA.json'
-import { useState } from "react";
+import { useContext,useState } from "react";
+import {ProvideData} from '../pages/Home.js'
 import { Divider, List, ListItem, ListItemText } from "@mui/material";
 
 
@@ -77,20 +77,20 @@ const style2={
 }
 
 const DisplayDepartment=()=>{
+    const provided=useContext(ProvideData)
+    const [searchQuery,setSearchQuery]=useState()
+    const [result,setResult]=useState([])
+    const [managingDepartmentToggle,SetManagingDepartmentToggle]=useState(false)
+    const [managesToggle,setManagesToggle]=useState(false)
 
-const [searchQuery,setSearchQuery]=useState()
-const [result,setResult]=useState([])
-const [managingDepartmentToggle,SetManagingDepartmentToggle]=useState(false)
-const [managesToggle,setManagesToggle]=useState(false)
-
-const handleChange=(e)=>{
-    e.preventDefault();
-    setSearchQuery((prev)=>prev=e.target.value);
-}
+    const handleChange=(e)=>{
+        e.preventDefault();
+        setSearchQuery((prev)=>prev=e.target.value);
+    }
 
 const handleSearch=(e)=>{
     e.preventDefault()
-    setResult((prev)=>prev=Mock_Data.filter(items=>items.department_name.toLowerCase()===searchQuery));
+    setResult((prev)=>prev=provided.data.filter(items=>items.department_name.toLowerCase()===searchQuery));
     console.log(result)
 }
 

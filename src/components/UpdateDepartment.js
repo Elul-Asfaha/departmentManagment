@@ -110,20 +110,21 @@ const [selectedDepartment,setSelectedDepartment]=useState("")
 
 
 const handleInput=(e)=>{
-    const {name,value}=e.target;
-    setUpdatedDept({...UpdateDepartment,
-            [name]:value
-        })
-        setUpdatedDept(prev=>({
-        ...prev,
-        id: provided.data.length+1
-    }));
-    (typeof(value)==='number') && setUpdatedDept(
-        {   
-            managing_department: provided.data[value-1].department_name
-        }
-    )
+    const {name,value,type}=e.target;
+    (type!=="select") && setUpdatedDept({...UpdatedDept,
+        [name]:value
+    })
+    setUpdatedDept(prev=>({
+    ...prev,
+    id: Math.floor(Math.random() * 100)
+
+}));
+(typeof(value)==='number') && setUpdatedDept(
+    {   
+        [name]: value
     }
+)
+}
 
 
 const handleSubmit=(e)=>{
@@ -132,10 +133,9 @@ const handleSubmit=(e)=>{
     
     provided.handleUpdateToggler();
 
-    provided.setData([...provided.data,
-        UpdateDepartment
+    provided.setData(prev=>[...prev,
+        UpdatedDept
     ])
-
     setUpdatedDept(
         {
             id: '',
@@ -152,6 +152,8 @@ const handleSubmit=(e)=>{
 const handleSelectDeptEdit=(e)=>{
 setSelectedDepartment(parseInt(e.target.value))
 }
+
+
     return(
         <Container>
             <Title>
@@ -177,13 +179,13 @@ setSelectedDepartment(parseInt(e.target.value))
                     <Label htmlFor="managing_department">Reports To:</Label>
                     <Select onChange={handleInput} name="managing_department" required>
                         <option value={UpdatedDept.managing_department} >N/A</option>
-                        {provided.data.map(items=><option value={items.id} key={items.id}>{items.department_name}</option>
+                        {provided.data.map(items=><option value={items.managing_department} key={items.id}>{items.department_name}</option>
                         )}
                     </Select>
                     <Label htmlFor="manages">Manages</Label>
                     <Select onChange={handleInput} name="manages"  required>
                         <option value={UpdatedDept.manages} >N/A</option>
-                        {provided.data.map(items=><option value={items.id} key={items.id}>{items.manages}</option>
+                        {provided.data.map(items=><option value={items.manages} key={items.id}>{items.manages}</option>
                         )}
                     </Select>
                     <Label htmlFor="description">Description:</Label>

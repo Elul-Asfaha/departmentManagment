@@ -99,8 +99,8 @@ const [NewDept,setNewDept]=useState({
 })
 
 const handleInput=(e)=>{
-const {name,value}=e.target;
-setNewDept({...NewDept,
+const {name,value,type}=e.target;
+(type!=="select") && setNewDept({...NewDept,
         [name]:value
     })
 setNewDept(prev=>({
@@ -110,9 +110,10 @@ setNewDept(prev=>({
 }));
 (typeof(value)==='number') && setNewDept(
     {   
-        managing_department: provided.data[value-1].department_name
+        [name]: value
     }
 )
+
 }
 
 const handleSubmit=(e)=>{
@@ -146,13 +147,13 @@ const handleSubmit=(e)=>{
                     <Label htmlFor="managing_department">Reports To:</Label>
                     <Select onChange={handleInput} name="managing_department" required>
                         <option value={NewDept.managing_department} >N/A</option>
-                        {provided.data.map(items=><option value={items.id} key={items.id}>{items.managing_department}</option>
+                        {provided.data.map(items=><option value={items.managing_department} key={items.id}>{items.managing_department}</option>
                         )}
                     </Select>
                     <Label htmlFor="manages">Manages</Label>
                     <Select onChange={handleInput} name="manages"  required>
                         <option value={NewDept.manages} >N/A</option>
-                        {provided.data.map(items=><option value={items.id} key={items.id}>{items.manages}</option>
+                        {provided.data.map(items=><option value={items.manages} key={items.id}>{items.manages}</option>
                         )}
                     </Select>
                     <Label htmlFor="description">Description:</Label>
