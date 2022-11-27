@@ -39,8 +39,6 @@ const Home=()=>{
     const [addToggle,setAddToggle]=useState(false)
     const [updateToggle,setUpdateToggle]=useState(false)
 
-    console.log(data)
-
 
 const handleAddToggler=()=>{
     setAddToggle(!addToggle)
